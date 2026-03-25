@@ -1,0 +1,102 @@
+# CCZ Larval Connectivity — Production Configuration
+# All manuscript parameters are set here.
+
+# ── Domain ────────────────────────────────────────────────────────────────────
+domain:
+  lon_min: -160
+  lon_max: -110
+  lat_min: 0
+  lat_max: 25
+
+# ── Grid ──────────────────────────────────────────────────────────────────────
+grid:
+  resolution_km: 100
+  crs_equal_area: "EPSG:8857"   # Equal Earth projection for area calculations
+  crs_data: "EPSG:4326"          # WGS84 for data i/o
+  crs_distance: "EPSG:3338"      # For distance calculations
+
+# ── HYCOM ─────────────────────────────────────────────────────────────────────
+hycom:
+  opendap_url: "https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0"
+  north: 25
+  south: -5
+  west: 260    # 260°E = -100°W in HYCOM convention; adjusted to 260 for -100 lon
+  east: 250    # 250°E = -110°W; NOTE actual west=260 east=250 means west>east; see download script
+  # Correct HYCOM longitudes: west=190 (=-170°W), east=250 (=-110°W)
+  west_hycom: 190   # -170°W → 190°E in 0–360 convention
+  east_hycom: 250   # -110°W → 250°E in 0–360 convention
+  variables:
+    - water_u_bottom
+    - water_v_bottom
+
+# ── Time periods ──────────────────────────────────────────────────────────────
+time_periods:
+  n: 4
+  periods:
+    - label: "Jan2019"
+      start: "2019-01-01"
+      end:   "2019-04-09"   # 69 days after Jan 1
+    - label: "Jul2019"
+      start: "2019-07-01"
+      end:   "2019-09-08"
+    - label: "Jan2023"
+      start: "2023-01-01"
+      end:   "2023-04-09"
+    - label: "Jul2023"
+      start: "2023-07-01"
+      end:   "2023-09-08"
+
+# ── Particle tracking ─────────────────────────────────────────────────────────
+tracking:
+  pps: 3648                  # particles per site
+  pld_days: [19, 35, 69]
+  dt_minutes: 60             # internal timestep
+  output_dt_hours: 1         # output interval
+  random_seed: 123
+  scenarios:
+    - unmined
+    - mined
+  # Smagorinsky diffusion parameters
+  smagorinsky:
+    Cs: 0.1
+    dx_deg: 0.01
+
+# ── Connectivity ──────────────────────────────────────────────────────────────
+connectivity:
+  reciprocal_threshold: 1000   # min particles for a reciprocal link
+
+# ── Network analysis ──────────────────────────────────────────────────────────
+network:
+  community_method: "fast_greedy"
+
+# ── ICV weights ───────────────────────────────────────────────────────────────
+icv:
+  weights: [0.25, 0.25, 0.25, 0.25]
+
+# ── Shapefiles ────────────────────────────────────────────────────────────────
+shapefiles:
+  ccz_boundary:  "data/shapefiles/ccz_boundary.shp"
+  ccz_grid:      "data/shapefiles/ccz_grid.shp"
+  ccz_centroids: "data/shapefiles/ccz_grid_centroids.csv"
+  apei:          "data/shapefiles/apei.shp"
+  ami:           "data/shapefiles/ami.shp"
+  apei_label_field: "Remarks"
+
+# ── HYCOM download output ──────────────────────────────────────────────────────
+hycom_data_dir: "data/hycom"
+
+# ── Particle tracking output ───────────────────────────────────────────────────
+particles_dir: "data/particles"
+
+# ── Connectivity output ────────────────────────────────────────────────────────
+connectivity_dir: "outputs/connectivity"
+
+# ── Network analysis output ────────────────────────────────────────────────────
+network_dir: "outputs/network"
+
+# ── ICV / optimisation output ─────────────────────────────────────────────────
+optimisation_dir: "outputs/optimisation"
+
+# ── Figures output ────────────────────────────────────────────────────────────
+figures_dir: "outputs/figures"
+figure_dpi: 300

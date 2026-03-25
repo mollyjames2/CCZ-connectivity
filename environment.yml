@@ -1,0 +1,57 @@
+name: ccz-connectivity
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Python
+  - python=3.11
+  - pip
+
+  # Data formats and I/O
+  - xarray>=2023.6
+  - netcdf4>=1.6
+  - zarr>=2.16
+  - h5py>=3.9
+  - pandas>=2.0
+  - numpy>=1.24
+  - scipy>=1.11
+  - dask>=2023.6
+
+  # Geospatial
+  - geopandas>=0.14
+  - shapely>=2.0
+  - pyproj>=3.6
+  - rasterio>=1.3
+  - fiona>=1.9
+
+  # Oceanography / particle tracking
+  - parcels>=3.0.4
+
+  # Graph / network analysis
+  - python-igraph>=0.11
+
+  # Machine learning (PCA for ICV)
+  - scikit-learn>=1.3
+
+  # Visualisation
+  - matplotlib>=3.7
+  - cartopy>=0.22
+  - cmocean>=3.0
+  - seaborn>=0.12
+
+  # YAML
+  - pyyaml>=6.0
+
+  # Development / testing
+  - pytest>=7.4
+  - pytest-cov>=4.1
+  - black>=23.0
+  - isort>=5.12
+  - flake8>=6.0
+
+  # Notebook support (optional)
+  - jupyterlab>=4.0
+  - ipykernel>=6.25
+
+  - pip:
+    - ccz-connectivity
