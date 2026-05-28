@@ -56,6 +56,8 @@ ccz-connectivity-repo/
 │   ├── 03_network_analysis.py
 │   ├── 04_corridor_optimisation.py
 │   └── 05_generate_figures.py
+├── analysis/
+│   └── hycom_vertical_profile_analysis.py  # Standalone vertical profile characterisation (not part of main workflow)
 ├── tests/
 │   ├── generate_test_data.py
 │   ├── run_test_pipeline.sh
