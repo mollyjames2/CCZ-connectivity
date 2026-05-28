@@ -218,6 +218,24 @@ python workflow/05_generate_figures.py --config config/config.yaml --figures 1 3
 
 ---
 
+## Supplementary Analysis
+
+`analysis/hycom_vertical_profile_analysis.py` is a standalone script (not part of the
+main workflow) that characterises the vertical structure of HYCOM GOFS 3.1 currents
+across the CCZ domain.  It covers the four larval dispersal simulation windows and
+produces speed profiles, directional profiles, and larval reachability cross-references
+relative to near-bed conditions.
+
+```bash
+python analysis/hycom_vertical_profile_analysis.py
+```
+
+On first run the script fetches data from HYCOM OPeNDAP and caches the result to
+`analysis/hycom_data_cache.npz`; subsequent runs load from the cache.  Outputs (5 PNG
+figures) are written to the `analysis/` directory and are not tracked in git.
+
+---
+
 ## Test Pipeline
 
 A reduced-scale test pipeline uses synthetic data (no real HYCOM or particle-tracking runs required).  The test domain is 0–50°E, 0–50°N with 2500 1°-resolution cells and 10 particles per site.  The pipeline enters at step 02.
